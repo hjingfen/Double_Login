@@ -1,0 +1,36 @@
+.container
+  .row(style="width:1320px;" )
+    .col-xs-3(style="padding-left:45px" )
+      %h1活动通
+    .col-xs-9(style="margin-top:20px; text-align:right" )
+      你好,
+      -#= @name
+      %a(style="text-decoration:none" href="/signout" )退出登录
+  .row(style="width:1320px;padding:20px 0px")
+    .col-xs-12(style="padding-left:55px" )
+      .panel.panel-default
+        .panel-heading(style="padding:8px 14px" )
+          %h4.clearfix
+            活动信息
+        %table.table(style="text-align:center" )
+          %thead
+            %tr
+              %th.text-center 编号
+              %th.text-center 活动名称
+              %th.text-center 报名人数
+              %th.text-center 竞价次数
+          %tbody
+            -#- @activities.each_with_index do |activity, index|
+            -#  %tr
+                %td
+                  =index + 1 + @current_page*10
+                %td
+                  =link_to activity.activity_name,bidding_list_path(:activity_name => activity.activity_name,:user_name => activity.user_name,:admin_user => @user_name)
+                %td
+                  =link_to activity.sign_up_counts,sign_up_list_path(:activity_name => activity.activity_name,:user_name =>activity.user_name,:admin_user => @user_name)
+                %td
+                  =link_to activity.bidding_counts,bidding_list_path(:activity_name => activity.activity_name,:user_name => activity.user_name,:admin_user => @user_name)
+
+  -#.row(style="width:1305px")
+    .col-xs-12(style="text-align:right" )
+      = will_paginate @names,:previous_label => '&laquo',:next_label =>'&raquo'
